@@ -11,12 +11,14 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from './src/components/HomeScreen';
 import Search from './src/components/Search';
 import {Vibration, Alert, StatusBar} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 const Tab = createBottomTabNavigator();
 
 const showBookmarkAlert = () => {
   Vibration.vibrate();
   Alert.alert(
-    'Comming Soon!',
+    'Coming Soon!',
     "We're hard at work on this features, check back in the near future.",
     [{text: 'OK', onPress: () => console.log('User pressed OK')}],
   );
@@ -27,12 +29,25 @@ function App(): JSX.Element {
   return (
     <NavigationContainer theme={DarkTheme}>
       <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            tabBarIcon: ({color}: {color: string}) => (
+              <Icon name="home" size={20} color={color} />
+            ),
+          }}
+        />
         <Tab.Screen
           name="Search"
           component={Search}
           listeners={{
             tabPress: () => showBookmarkAlert(),
+          }}
+          options={{
+            tabBarIcon: ({color}: {color: string}) => (
+              <Icon name="search" size={20} color={color} />
+            ),
           }}
         />
       </Tab.Navigator>
